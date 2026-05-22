@@ -1,27 +1,6 @@
 from Model.Tarefa import *
 from View.Menu import *
-from Service.TarefaService import *
-
-class Main:
-    idTarefa=2
-
-    def execTarefa():
-        descTarefa = input("Desc:")
-        novaTarefa = Tarefa(Main.idTarefa,descTarefa,"ANDAMENTO")
-        TarefaService.addTarefa(novaTarefa)
-        Main.idTarefa+=1
-    
-    def execExcluirTarefa():
-        idExcluir = int(input("Digite o ID para excluir:"))
-        TarefaService.removeTarefa(idExcluir)
-        Main.idTarefa-=1
-
-    def execConcludeTarefa():
-        idConcluir = int(input("Digite o ID para concluir:"))
-        TarefaService.concludeTarefa(idConcluir)
-        
-
-
+import Service.TarefaService as tarefa_service
 
 while True:
     Menu.mostrar()
@@ -34,13 +13,16 @@ while True:
 
     match escolha:
         case 1:
-            Main.execTarefa()
+           descricao = input("Desc: ")
+           tarefa_service.add_tarefa(descricao)
         case 2:
-            TarefaService.listTarefas()
+            tarefa_service.list_tarefas()
         case 3:
-            Main.execExcluirTarefa()
+            idExcluir = int(input("Digite o ID para excluir:"))
+            tarefa_service.remove_tarefa(idExcluir)
         case 4:
-            Main.execConcludeTarefa()
+            idConcluir = int(input("Digite o ID para concluir:"))
+            tarefa_service.conclude_tarefa(idConcluir)
         case 5:
             print("PROGRAMA FINALIZADO!")
             break
